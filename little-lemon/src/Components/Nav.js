@@ -1,18 +1,19 @@
 import "../App.css";
-import { Link } from "react-router-dom"
 
 const Nav = () => {
     return (
-        <nav>
-            <ul>
-                <li><Link to="#">Home</Link> </li>
-                <li><Link to="#">About</Link></li>
-                <li><Link to="#">Menu</Link></li>
-                <li><Link to="#">Reservations</Link></li>
-                <li><Link to="#">Order Online</Link></li>
-                <li><Link to="#">Login</Link></li>
-            </ul>
-        </nav>
+        <>
+            <nav>
+                <ul>
+                    <li><b>Home</b></li>
+                    <li><b>About</b></li>
+                    <li><b>Menu</b></li>
+                    <li><b>Reservations</b></li>
+                    <li><b>Order Online</b></li>
+                    <li><b>Login</b></li>
+                </ul>
+            </nav>
+        </>
     );
 }
 

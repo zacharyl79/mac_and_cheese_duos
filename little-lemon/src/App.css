@@ -19,6 +19,10 @@ nav {
   text-align: center;
 }
 
+nav > ul {
+  list-style: none;
+}
+
 main {
   flex-grow: 1;
   padding: 20px;
