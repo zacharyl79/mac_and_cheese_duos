@@ -357,9 +357,10 @@ footer {
   font-weight: 100;
   color: #EDEFEE;
   margin: 0;
+  padding-bottom: 12px;
 }
 
-.call-to-action-stack > button {
+.reservation-button {
   display: flex;
   align-items: center;
   align-content: center;
@@ -373,6 +374,11 @@ footer {
   padding-bottom: 16px;
   padding-left: 84px;
   padding-right: 84px;
+}
+
+.reservation-button:hover {
+  cursor: pointer;
+  background-color: #f8b400;
 }
 
 .footer-container {
@@ -409,4 +415,75 @@ footer {
   color: #7A7171;
   font-size: 20px;
   padding-bottom: 5px;
+}
+/* Styling the form container */
+form {
+  display: grid;
+  max-width: 400px;
+  margin: 0 auto;
+  gap: 15px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Label styling */
+label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Input and select styling */
+input[type="date"],
+input[type="number"],
+select {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[type="date"]:focus,
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: #0078d4; /* Subtle blue focus outline */
+  box-shadow: 0 0 5px rgba(0, 120, 212, 0.3);
+}
+
+/* Submit button styling */
+input[type="submit"] {
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #0078d4; /* Microsoft blue */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #005a9e;
+}
+
+/* Optional: Add hover effects to inputs and selects */
+input[type="date"]:hover,
+input[type="number"]:hover,
+select:hover {
+  border-color: #0078d4;
+}
+
+/* Styling placeholder text */
+input::placeholder {
+  color: #aaa;
+  font-size: 12px;
 }
