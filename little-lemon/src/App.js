@@ -1,4 +1,5 @@
-import './App.css';
+import { BrowserRouter } from "react-router-dom";
+import "./App.css";
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import Main from "./Components/Main";
@@ -6,9 +7,11 @@ import Main from "./Components/Main";
 function App() {
   return (
     <>
-    <Header />
-    <Main />
-    <Footer />
+      <BrowserRouter>
+        <Header />
+        <Main />
+        <Footer />
+      </BrowserRouter>
     </>
   );
 }

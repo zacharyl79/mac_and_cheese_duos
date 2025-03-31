@@ -1,24 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const BookingPage = () => {
     const [formInfo, setFormInfo] = useState({
-        "date": Date(),
-        "time": "8:30 PM",
+        "date": new Date().toISOString().split("T")[0],
+        "time": "17:00",
         "guests": 1,
-        "occasion": "None"
+        "occasion": "Birthday"
     });
 
-    const handleChanges = (e, inputKind) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        setFormInfo(prevState => {...prevState, inputKind: e.value});
+        console.log(formInfo);
     };
 
+    useEffect(() => {
+        console.log(formInfo.date);
+    }, [formInfo.date])
+
     return (
-        <form style={{"display": "grid", "max-width" : "200px", "gap": "20px"}}>
+        <form style={{"display": "grid", "maxWidth" : "200px", "gap": "20px"}} onSubmit={handleSubmit}>
             <label for="res-date">Choose date: </label>
-            <input type="date" id="res-date" value={formInfo.date} onChange={}/>
+            <input type="date" id="res-date" value={formInfo.date} onChange={e => setFormInfo(prevState => ({ ...prevState, "date": e.target.valueAsDate.toISOString().split("T")[0]}))}/>
             <label for="res-time">Choose time: </label>
-            <select id="res-time" value={formInfo.time}>
+            <select id="res-time" value={formInfo.time} onChange={e => setFormInfo(prev => ({ ...formInfo, "time": e.target.value }))}>
                 <option>17:00</option>
                 <option>18:00</option>
                 <option>19:00</option>
@@ -27,9 +31,9 @@ const BookingPage = () => {
                 <option>22:00</option>
             </select>
             <label for="guests">Number of guests: </label>
-            <input type="number" placeholder="1" min="1" max="10" id="guests" value={formInfo.guests}/>
+            <input type="number" placeholder="1" min="1" max="10" id="guests" value={formInfo.guests} onChange={e => setFormInfo(prev => ({ ...formInfo, "guests": e.target.value}))}/>
             <label for="occasion">Occasion: </label>
-            <select id="occasion" value={formInfo.occasion}>
+            <select id="occasion" value={formInfo.occasion} onChange={e => setFormInfo(prev => ({ ...formInfo, "occasion": e.target.value }))}>
                 <option>Birthday</option>
                 <option>Anniversary</option>
             </select>
