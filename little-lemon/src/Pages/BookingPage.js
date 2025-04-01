@@ -1,44 +1,40 @@
-import { useEffect, useState } from "react";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import BookingForm from '../Components/BookingForm';
+import { useReducer } from 'react';
+import { fetchAPI } from "../Utility/fakeAPI";
 
 const BookingPage = () => {
-    const [formInfo, setFormInfo] = useState({
-        "date": new Date().toISOString().split("T")[0],
-        "time": "17:00",
-        "guests": 1,
-        "occasion": "Birthday"
+    const formik = useFormik({
+        initialValues: {
+            "date": new Date().toISOString().split("T")[0],
+            "time": "17:00",
+            "guests": 1,
+            "occasion": "Birthday"
+        },
+        onSubmit: values => {
+            console.log(values);
+        },
+        validationSchema: Yup.object({
+            date: Yup.date().required(),
+            time: Yup.string().required(),
+            guests: Yup.number().min(1).required(),
+            occasion: Yup.string().oneOf(["Birthday", "Anniversary"]).required()
+        })
     });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formInfo);
+    const updateTimes = (availableTimes, date) => {
+        const response = fetchAPI(new Date(date));
+        return (response.length !== 0) ? response : availableTimes;
     };
 
-    useEffect(() => {
-        console.log(formInfo.date);
-    }, [formInfo.date])
+    const initializeTimes = initialAvailableTimes =>
+        [...initialAvailableTimes, ...fetchAPI(new Date().toISOString().split("T")[0])];
+
+    const [state, dispatch] = useReducer(updateTimes, [], initializeTimes);
 
     return (
-        <form style={{"display": "grid", "maxWidth" : "200px", "gap": "20px"}} onSubmit={handleSubmit}>
-            <label for="res-date">Choose date: </label>
-            <input type="date" id="res-date" value={formInfo.date} onChange={e => setFormInfo(prevState => ({ ...prevState, "date": e.target.valueAsDate.toISOString().split("T")[0]}))}/>
-            <label for="res-time">Choose time: </label>
-            <select id="res-time" value={formInfo.time} onChange={e => setFormInfo(prev => ({ ...formInfo, "time": e.target.value }))}>
-                <option>17:00</option>
-                <option>18:00</option>
-                <option>19:00</option>
-                <option>20:00</option>
-                <option>21:00</option>
-                <option>22:00</option>
-            </select>
-            <label for="guests">Number of guests: </label>
-            <input type="number" placeholder="1" min="1" max="10" id="guests" value={formInfo.guests} onChange={e => setFormInfo(prev => ({ ...formInfo, "guests": e.target.value}))}/>
-            <label for="occasion">Occasion: </label>
-            <select id="occasion" value={formInfo.occasion} onChange={e => setFormInfo(prev => ({ ...formInfo, "occasion": e.target.value }))}>
-                <option>Birthday</option>
-                <option>Anniversary</option>
-            </select>
-            <input type="submit" value="Make Your reservation" />
-        </form>
+        <BookingForm formik={formik} availableTimes={state} dispatch={dispatch} />
     );
 };
 
